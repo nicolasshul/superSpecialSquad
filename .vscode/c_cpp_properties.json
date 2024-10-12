@@ -16,7 +16,8 @@
                 "${workspaceFolder}${/}src${/}devices${/}inc",
                 "${workspaceFolder}${/}src${/}algo${/}inc",
                 "${workspaceFolder}${/}src${/}bsp${/}inc",
-                "${workspaceFolder}${/}src${/}app${/}inc"
+                "${workspaceFolder}${/}src${/}app${/}inc",
+                "${workspaceFolder}/control-base/typec-board-base/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
