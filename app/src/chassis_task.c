@@ -35,19 +35,11 @@ void Chassis_Task_Init()
                 .kf = 20.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
-        .angle_pid =
-            {
-                .kp = 5000.0f,
-                .kd = 3500000.0f,
-                .ki = 0.1f,
-                .output_limit = M2006_MAX_CURRENT,
-                .integral_limit = 1000.0f,
-            },
     };
     motor_w1 = DJI_Motor_Init(&chassis_w1, M2006);
 
     Motor_Config_t chassis_w2 = {
-        .can_bus = 2, // change later 
+        .can_bus = 1, // change later 
         .speed_controller_id = 2, // change later based on can bus
         .offset = 0,
         .control_mode = VELOCITY_CONTROL,
@@ -59,19 +51,11 @@ void Chassis_Task_Init()
                 .kf = 20.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
-        .angle_pid =
-            {
-                .kp = 5000.0f,
-                .kd = 3500000.0f,
-                .ki = 0.1f,
-                .output_limit = M2006_MAX_CURRENT,
-                .integral_limit = 1000.0f,
-            },
     };
     motor_w2 = DJI_Motor_Init(&chassis_w2, M2006);
 
     Motor_Config_t chassis_w3 = {
-        .can_bus = 3, // change later 
+        .can_bus = 1, // change later 
         .speed_controller_id = 3, // change later based on can bus
         .offset = 0,
         .control_mode = VELOCITY_CONTROL,
@@ -83,19 +67,11 @@ void Chassis_Task_Init()
                 .kf = 20.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
-        .angle_pid =
-            {
-                .kp = 5000.0f,
-                .kd = 3500000.0f,
-                .ki = 0.1f,
-                .output_limit = M2006_MAX_CURRENT,
-                .integral_limit = 1000.0f,
-            },
     };
     motor_w3 = DJI_Motor_Init(&chassis_w3, M2006);
 
     Motor_Config_t chassis_w4 = {
-        .can_bus = 4, // change later 
+        .can_bus = 1, // change later 
         .speed_controller_id = 4, // change later based on can bus
         .offset = 0,
         .control_mode = VELOCITY_CONTROL,
@@ -107,30 +83,18 @@ void Chassis_Task_Init()
                 .kf = 20.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
-        .angle_pid =
-            {
-                .kp = 5000.0f,
-                .kd = 3500000.0f,
-                .ki = 0.1f,
-                .output_limit = M2006_MAX_CURRENT,
-                .integral_limit = 1000.0f,
-            },
     };
     motor_w4 = DJI_Motor_Init(&chassis_w4, M2006);
 }
 
-void Chassis_Ctrl_Loop()
+void Chassis_Ctrl_Loop() // This is for the kinematics, everything else is handled in robot.c. Use Robot_State_t and Remote_ t structs
 {
     int16_t remote_vy = g_remote.controller.right_stick.y;
     int16_t remote_vx = g_remote.controller.right_stick.x;
     int16_t remote_rotation = g_remote.controller.left_stick.x;
 
-    //  = {
-        controller_in.x_velo = (float) (remote_vx / REMOTE_STICK_MAX);
-        controller_in.y_velo = (float) (remote_vy / REMOTE_STICK_MAX);
-        controller_in.ang_velo = (float) (remote_rotation / REMOTE_STICK_MAX);
-    // };
-
-
+    controller_in.x_velo = (float) (remote_vx / REMOTE_STICK_MAX);
+    controller_in.y_velo = (float) (remote_vy / REMOTE_STICK_MAX);
+    controller_in.ang_velo = (float) (remote_rotation / REMOTE_STICK_MAX);
 
 }
