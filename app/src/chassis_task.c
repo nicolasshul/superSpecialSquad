@@ -4,6 +4,7 @@
 #include "remote.h"
 #include <dji_motor.h>
 
+//hi, my name is michael
 extern Robot_State_t g_robot_state;
 extern Remote_t g_remote;
 DJI_Motor_Handle_t *motor_w1;
