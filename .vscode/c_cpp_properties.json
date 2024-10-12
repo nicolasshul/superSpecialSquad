@@ -24,7 +24,8 @@
             ],
             "macFrameworkPath": [
                 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
-            ]
+            ],
+            "compilerPath": "/usr/bin/clang"
         }
     ],
     "version": 4
