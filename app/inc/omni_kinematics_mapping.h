@@ -1,11 +1,11 @@
-#ifndef KINEMATICS_MAPPING_H
-#define KINEMATICS_MAPPING_H
+#ifndef OMNI_KINEMATICS_MAPPING_H
+#define OMNI_KINEMATICS_MAPPING_H
 
-const float SIN45 = 0.70710678;
-const float COS45 = 0.70710678;
-const float WHEEL_RADIUS = 2;
-const float WHEEL_DIST = 2;
-const float MAX_SPEED = 20;
+#define SIN45 0.70710678
+#define COS45 0.70710678
+#define WHEEL_RADIUS 2
+#define WHEEL_DIST 2
+#define MAX_SPEED 20
 
 struct Wheel_Velos {
     float wheel_one_speed;

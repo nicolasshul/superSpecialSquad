@@ -2,8 +2,8 @@
 
 #include "robot.h"
 #include "remote.h"
-#include <dji_motor.h>
-
+#include "dji_motor.h"
+#include "omni_kinematics_mapping.h"
 
 extern Robot_State_t g_robot_state;
 extern Remote_t g_remote;
@@ -13,6 +13,12 @@ DJI_Motor_Handle_t *motor_w3;
 DJI_Motor_Handle_t *motor_w4;
 
 float chassis_rad;
+
+struct Input controller_in = {
+    .x_velo = 0,
+    .y_velo = 0,
+    .ang_velo = 0,
+};
 
 void Chassis_Task_Init()
 {
@@ -36,7 +42,7 @@ void Chassis_Task_Init()
                 .ki = 0.1f,
                 .output_limit = M2006_MAX_CURRENT,
                 .integral_limit = 1000.0f,
-            }
+            },
     };
     motor_w1 = DJI_Motor_Init(&chassis_w1, M2006);
 
@@ -60,7 +66,7 @@ void Chassis_Task_Init()
                 .ki = 0.1f,
                 .output_limit = M2006_MAX_CURRENT,
                 .integral_limit = 1000.0f,
-            }
+            },
     };
     motor_w2 = DJI_Motor_Init(&chassis_w2, M2006);
 
@@ -84,7 +90,7 @@ void Chassis_Task_Init()
                 .ki = 0.1f,
                 .output_limit = M2006_MAX_CURRENT,
                 .integral_limit = 1000.0f,
-            }
+            },
     };
     motor_w3 = DJI_Motor_Init(&chassis_w3, M2006);
 
@@ -108,7 +114,7 @@ void Chassis_Task_Init()
                 .ki = 0.1f,
                 .output_limit = M2006_MAX_CURRENT,
                 .integral_limit = 1000.0f,
-            }
+            },
     };
     motor_w4 = DJI_Motor_Init(&chassis_w4, M2006);
 }
@@ -117,9 +123,14 @@ void Chassis_Ctrl_Loop()
 {
     int16_t remote_vy = g_remote.controller.right_stick.y;
     int16_t remote_vx = g_remote.controller.right_stick.x;
-
     int16_t remote_rotation = g_remote.controller.left_stick.x;
 
-    
+    //  = {
+        controller_in.x_velo = (float) (remote_vx / REMOTE_STICK_MAX);
+        controller_in.y_velo = (float) (remote_vy / REMOTE_STICK_MAX);
+        controller_in.ang_velo = (float) (remote_rotation / REMOTE_STICK_MAX);
+    // };
+
+
 
 }
