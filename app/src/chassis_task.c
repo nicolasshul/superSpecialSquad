@@ -4,6 +4,7 @@
 #include "remote.h"
 #include <dji_motor.h>
 
+
 extern Robot_State_t g_robot_state;
 extern Remote_t g_remote;
 DJI_Motor_Handle_t *motor_w1;
@@ -114,5 +115,11 @@ void Chassis_Task_Init()
 
 void Chassis_Ctrl_Loop()
 {
-    // Control loop for the chassis
+    int16_t remote_vy = g_remote.controller.right_stick.y;
+    int16_t remote_vx = g_remote.controller.right_stick.x;
+
+    int16_t remote_rotation = g_remote.controller.left_stick.x;
+
+    
+
 }
