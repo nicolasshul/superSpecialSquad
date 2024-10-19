@@ -1,12 +1,22 @@
 #include "omni_kinematics_mapping.h"
 
-float max(float x, float y) {
-    if (x > y) {
-        return x;
-    }
-    else {
-        return y;
-    }
+// float max(float x, float y) {
+//     if (x > y) {
+//         return x;
+//     }
+//     else {
+//         return y;
+//     }
+// }
+
+float max(struct Wheel_Velos* velos)
+{
+    // assert(velos!=NULL);
+    float max = velos->wheel_one_speed;
+    if (max < velos->wheel_two_speed) max = velos->wheel_two_speed;
+    if (max < velos->wheel_three_speed) max = velos->wheel_three_speed;
+    if (max < velos->wheel_four_speed) max = velos->wheel_four_speed;
+    return max;
 }
 
 void updateWheelVelocity(struct Wheel_Velos* velos, struct Input* input) {
@@ -17,7 +27,7 @@ void updateWheelVelocity(struct Wheel_Velos* velos, struct Input* input) {
 }
 
 void desaturate(struct Wheel_Velos* velos) {
-    float highest_speed = max(velos->wheel_one_speed, max(velos->wheel_two_speed, max(velos->wheel_three_speed, velos->wheel_four_speed)));
+    float highest_speed = max(velos);
     if (highest_speed > MAX_SPEED) {
         float ratio = MAX_SPEED / highest_speed;
         velos->wheel_one_speed = velos->wheel_one_speed * ratio;
