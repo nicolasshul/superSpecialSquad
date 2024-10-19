@@ -12,20 +12,13 @@ DJI_Motor_Handle_t *motor_w1;
 DJI_Motor_Handle_t *motor_w2;
 DJI_Motor_Handle_t *motor_w3;
 DJI_Motor_Handle_t *motor_w4;
-
+struct Wheel_Velos wheel_velo_desired = {0};
 float chassis_rad;
 
 struct Input controller_in = {
     .x_velo = 0,
     .y_velo = 0,
     .ang_velo = 0,
-};
-
-struct Wheel_Velos wheel_velo_out = {
-    .wheel_one_speed = 0,
-    .wheel_two_speed = 0,
-    .wheel_three_speed = 0,
-    .wheel_four_speed = 0,
 };
 
 void Chassis_Task_Init()
@@ -38,9 +31,9 @@ void Chassis_Task_Init()
         .motor_reversal = MOTOR_REVERSAL_NORMAL,
         .velocity_pid = 
             { // tune later
-                .kp = 100.0f,
-                .kd = 20.0f,
-                .kf = 20.0f,
+                .kp = 500.0f,
+                .kd = 0.0f,
+                .kf = 0.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
     };
@@ -54,9 +47,9 @@ void Chassis_Task_Init()
         .motor_reversal = MOTOR_REVERSAL_NORMAL,
         .velocity_pid = 
             { // tune later
-                .kp = 100.0f,
-                .kd = 20.0f,
-                .kf = 20.0f,
+                .kp = 500.0f,
+                .kd = 0.0f,
+                .kf = 0.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
     };
@@ -70,9 +63,9 @@ void Chassis_Task_Init()
         .motor_reversal = MOTOR_REVERSAL_NORMAL,
         .velocity_pid = 
             { // tune later
-                .kp = 100.0f,
-                .kd = 20.0f,
-                .kf = 20.0f,
+                .kp = 500.0f,
+                .kd = 0.0f,
+                .kf = 0.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
     };
@@ -86,9 +79,9 @@ void Chassis_Task_Init()
         .motor_reversal = MOTOR_REVERSAL_NORMAL,
         .velocity_pid = 
             { // tune later
-                .kp = 100.0f,
-                .kd = 20.0f,
-                .kf = 20.0f,
+                .kp = 500.0f,
+                .kd = 0.0f,
+                .kf = 0.0f,
                 .output_limit = M2006_MAX_CURRENT,
             },
     };
@@ -97,20 +90,16 @@ void Chassis_Task_Init()
 
 void Chassis_Ctrl_Loop() // This is for the kinematics, everything else is handled in robot.c. Use Robot_State_t and Remote_ t structs
 {
-    // int16_t remote_vy = g_remote.controller.right_stick.y;
-    // int16_t remote_vx = g_remote.controller.right_stick.x;
-    // int16_t remote_rotation = g_remote.controller.left_stick.x;
+    controller_in.x_velo = (g_robot_state.input.vx);
+    controller_in.y_velo = (g_robot_state.input.vy);
+    controller_in.ang_velo = (g_robot_state.input.rotation);
 
-    controller_in.x_velo = (float) (g_robot_state.input.vx / REMOTE_STICK_MAX);
-    controller_in.y_velo = (float) (g_robot_state.input.vy / REMOTE_STICK_MAX);
-    controller_in.ang_velo = (float) (g_robot_state.input.rotation / REMOTE_STICK_MAX);
-
-    updateWheelVelocity(&wheel_velo_out, &controller_in);
-    desaturate(&wheel_velo_out);
-
+    updateWheelVelocity(&wheel_velo_desired, &controller_in);
+    desaturate(&wheel_velo_desired);
     
-
-
-
+    DJI_Motor_Set_Velocity(motor_w1, wheel_velo_desired.wheel_one_speed);
+    DJI_Motor_Set_Velocity(motor_w2, wheel_velo_desired.wheel_two_speed);
+    DJI_Motor_Set_Velocity(motor_w3, wheel_velo_desired.wheel_three_speed);
+    DJI_Motor_Set_Velocity(motor_w4, wheel_velo_desired.wheel_four_speed);
 
 }

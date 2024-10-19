@@ -96,12 +96,15 @@ void Handle_Disabled_State()
 }
 
 void Process_Remote_Input()
-{
+{  
+    g_robot_state.input.vy = ((float) g_remote.controller.right_stick.x);
+    g_robot_state.input.vx = ((float) g_remote.controller.right_stick.y);
+    g_robot_state.input.rotation = ((float) g_remote.controller.left_stick.x); 
 }
 
 void Process_Chassis_Control()
 {
-    Chassis_Ctrl_Loop();
+    Chassis_Ctrl_Loop(); 
 }
 
 void Process_Gimbal_Control()

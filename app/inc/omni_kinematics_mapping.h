@@ -3,9 +3,9 @@
 
 #define SIN45 0.70710678
 #define COS45 0.70710678
-#define WHEEL_RADIUS 2
-#define WHEEL_DIST 2
-#define MAX_SPEED 20
+#define WHEEL_RADIUS 2.0f
+#define WHEEL_DIST 2.0f
+#define MAX_SPEED 600.0f
 
 struct Wheel_Velos {
     float wheel_one_speed;
