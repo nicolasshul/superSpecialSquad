@@ -20,7 +20,7 @@ struct Input {
     float ang_velo;
 };
 
-float max(float x, float y);
+float max(struct Wheel_Velos* velos);
 void updateWheelVelocity(struct Wheel_Velos* velos, struct Input* input);
 void desaturate(struct Wheel_Velos* velos);
 

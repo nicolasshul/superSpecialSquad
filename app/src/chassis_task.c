@@ -4,6 +4,7 @@
 #include "remote.h"
 #include "dji_motor.h"
 #include "omni_kinematics_mapping.h"
+#include "pid.h"
 
 extern Robot_State_t g_robot_state;
 extern Remote_t g_remote;
@@ -18,6 +19,13 @@ struct Input controller_in = {
     .x_velo = 0,
     .y_velo = 0,
     .ang_velo = 0,
+};
+
+struct Wheel_Velos wheel_velo_out = {
+    .wheel_one_speed = 0,
+    .wheel_two_speed = 0,
+    .wheel_three_speed = 0,
+    .wheel_four_speed = 0,
 };
 
 void Chassis_Task_Init()
@@ -97,7 +105,12 @@ void Chassis_Ctrl_Loop() // This is for the kinematics, everything else is handl
     controller_in.y_velo = (float) (g_robot_state.input.vy / REMOTE_STICK_MAX);
     controller_in.ang_velo = (float) (g_robot_state.input.rotation / REMOTE_STICK_MAX);
 
+    updateWheelVelocity(&wheel_velo_out, &controller_in);
+    desaturate(&wheel_velo_out);
+
     
+
+
 
 
 }
