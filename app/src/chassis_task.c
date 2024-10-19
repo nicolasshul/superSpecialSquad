@@ -89,12 +89,15 @@ void Chassis_Task_Init()
 
 void Chassis_Ctrl_Loop() // This is for the kinematics, everything else is handled in robot.c. Use Robot_State_t and Remote_ t structs
 {
-    int16_t remote_vy = g_remote.controller.right_stick.y;
-    int16_t remote_vx = g_remote.controller.right_stick.x;
-    int16_t remote_rotation = g_remote.controller.left_stick.x;
+    // int16_t remote_vy = g_remote.controller.right_stick.y;
+    // int16_t remote_vx = g_remote.controller.right_stick.x;
+    // int16_t remote_rotation = g_remote.controller.left_stick.x;
 
-    controller_in.x_velo = (float) (remote_vx / REMOTE_STICK_MAX);
-    controller_in.y_velo = (float) (remote_vy / REMOTE_STICK_MAX);
-    controller_in.ang_velo = (float) (remote_rotation / REMOTE_STICK_MAX);
+    controller_in.x_velo = (float) (g_robot_state.input.vx / REMOTE_STICK_MAX);
+    controller_in.y_velo = (float) (g_robot_state.input.vy / REMOTE_STICK_MAX);
+    controller_in.ang_velo = (float) (g_robot_state.input.rotation / REMOTE_STICK_MAX);
+
+    
+
 
 }

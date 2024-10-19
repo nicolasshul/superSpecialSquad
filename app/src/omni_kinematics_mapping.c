@@ -12,8 +12,8 @@ float max(float x, float y) {
 void updateWheelVelocity(struct Wheel_Velos* velos, struct Input* input) {
     velos->wheel_one_speed = (1 / WHEEL_RADIUS) * (-SIN45 * input->x_velo + COS45 * input->y_velo + WHEEL_DIST * input->ang_velo);
     velos->wheel_two_speed = (1 / WHEEL_RADIUS) * (-COS45 * input->x_velo + -SIN45 * input->y_velo + WHEEL_DIST * input->ang_velo);
-    velos->wheel_one_speed = (1 / WHEEL_RADIUS) * (SIN45 * input->x_velo + -COS45 * input->y_velo + WHEEL_DIST * input->ang_velo);
-    velos->wheel_one_speed = (1 / WHEEL_RADIUS) * (COS45 * input->x_velo + SIN45 * input->y_velo + WHEEL_DIST * input->ang_velo);
+    velos->wheel_three_speed = (1 / WHEEL_RADIUS) * (SIN45 * input->x_velo + -COS45 * input->y_velo + WHEEL_DIST * input->ang_velo);
+    velos->wheel_four_speed = (1 / WHEEL_RADIUS) * (COS45 * input->x_velo + SIN45 * input->y_velo + WHEEL_DIST * input->ang_velo);
 }
 
 void desaturate(struct Wheel_Velos* velos) {
